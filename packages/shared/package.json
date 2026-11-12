@@ -9,7 +9,7 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "lint": "echo \"@abigail/shared: no lint configured yet\" && exit 0",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   }
 }
