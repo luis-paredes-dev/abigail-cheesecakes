@@ -1,4 +1,2 @@
-/**
- * Placeholder. Supabase client, generated types, and query functions will live here (Block 1).
- */
-export {};
+export { createDatabaseClient, type DatabaseClient } from "./client";
+export type { Database, Json } from "./types.generated";

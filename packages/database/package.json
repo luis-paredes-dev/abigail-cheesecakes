@@ -11,5 +11,8 @@
   "scripts": {
     "lint": "echo \"@abigail/database: no lint configured yet\" && exit 0",
     "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.119.0"
   }
 }
