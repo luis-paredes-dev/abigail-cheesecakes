@@ -285,13 +285,13 @@ export type Database = {
       is_admin: { Args: never; Returns: boolean }
       place_order: {
         Args: {
-          p_delivery_address: string
-          p_delivery_zone_id: string
-          p_email: string
+          p_delivery_address?: string
+          p_delivery_zone_id?: string
+          p_email?: string
           p_fulfilment_method: Database["public"]["Enums"]["fulfilment_method"]
           p_full_name: string
           p_items: Json
-          p_notes: string
+          p_notes?: string
           p_phone: string
         }
         Returns: string
