@@ -11,5 +11,8 @@
   "scripts": {
     "lint": "echo \"@abigail/validation: no lint configured yet\" && exit 0",
     "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
   }
 }
