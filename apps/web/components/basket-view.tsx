@@ -1,22 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useSyncExternalStore } from "react";
 
 import { MAX_ITEM_QUANTITY, formatPrice } from "@abigail/shared";
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useBasket } from "@/lib/basket-store";
-
-// False on the server and during the first render in the browser, true afterwards.
-// Stops the page flashing "Your basket is empty" before the saved basket loads.
-function useIsClient(): boolean {
-  return useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false,
-  );
-}
+import { useIsClient } from "@/lib/use-is-client";
 
 export function BasketView() {
   const isClient = useIsClient();

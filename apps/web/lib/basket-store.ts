@@ -82,6 +82,11 @@ function update(change: (basket: Basket) => Basket): void {
   writeBasket(change(readBasket()));
 }
 
+/** Empties the basket, e.g. after an order is placed. */
+export function clearBasket(): void {
+  writeBasket(EMPTY_BASKET);
+}
+
 /** The visitor's basket, saved in the browser. Use only in Client Components. */
 export function useBasket() {
   const basket = useSyncExternalStore(subscribe, readBasket, getServerSnapshot);
@@ -95,6 +100,6 @@ export function useBasket() {
     setQuantity: (productSizeId: string, quantity: number) =>
       update((current) => setQuantity(current, productSizeId, quantity)),
     remove: (productSizeId: string) => update((current) => removeItem(current, productSizeId)),
-    clear: () => update(() => EMPTY_BASKET),
+    clear: clearBasket,
   };
 }

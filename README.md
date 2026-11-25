@@ -66,6 +66,7 @@ See [`supabase/README.md`](supabase/README.md) for the full schema and RLS polic
    ```
    NEXT_PUBLIC_SUPABASE_URL=https://<your-project-ref>.supabase.co
    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<your-publishable-key>
+   WHATSAPP_NUMBER=<shop-whatsapp-number-digits-only>
    ```
 4. Start the app at http://localhost:3000:
    ```bash

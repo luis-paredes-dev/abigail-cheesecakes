@@ -21,3 +21,10 @@ export {
   type Basket,
   type BasketItem,
 } from "./basket";
+
+export {
+  formatOrderMessage,
+  whatsappLink,
+  type OrderMessageInput,
+  type OrderMessageLine,
+} from "./order-message";
