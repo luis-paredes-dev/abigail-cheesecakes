@@ -63,7 +63,7 @@
   --secondary: #c6b5d8; /* Soft Lavender */
   --secondary-foreground: #2e2433;
   --muted: #e7dcc6; /* Warm Beige */
-  --muted-foreground: #6b5d63; /* 5.5:1 on cream, 4.6:1 on beige */
+  --muted-foreground: #5e5056; /* 6.7:1 on cream, 5.6:1 on beige, 5.5:1 on the tinted hero */
   --accent: #c6b5d8;
   --accent-foreground: #2e2433;
   --destructive: #b42318;
