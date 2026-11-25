@@ -8,6 +8,7 @@ import { getActiveProducts, getProductBySlug } from "@abigail/database";
 import { ProductImage } from "@/components/product-image";
 import { ProductSizes } from "@/components/product-sizes";
 import { getDb } from "@/lib/db";
+import { SITE_NAME } from "@/lib/site";
 
 // Rebuild each product page from the database at most every 5 minutes.
 export const revalidate = 300;
@@ -33,9 +34,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Cheesecake not found | Abigail's Cheesecakes" };
   }
 
+  const title = `${product.name} | ${SITE_NAME}`;
+  const description = product.description ?? undefined;
+
   return {
-    title: `${product.name} | Abigail's Cheesecakes`,
-    description: product.description ?? undefined,
+    title,
+    description,
+    alternates: { canonical: `/cheesecakes/${product.slug}` },
+    openGraph: {
+      title,
+      description,
+      url: `/cheesecakes/${product.slug}`,
+      siteName: SITE_NAME,
+      locale: "en_GB",
+      type: "website",
+    },
   };
 }
 

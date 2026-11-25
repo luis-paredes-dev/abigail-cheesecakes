@@ -8,6 +8,7 @@ import { getDb } from "@/lib/db";
 export const metadata: Metadata = {
   title: "Cheesecakes | Abigail's Cheesecakes",
   description: "Browse our homemade cheesecakes, available in several sizes.",
+  alternates: { canonical: "/cheesecakes" },
 };
 
 // Rebuild this page from the database at most every 5 minutes.

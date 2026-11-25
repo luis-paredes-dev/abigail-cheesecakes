@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Abigail's Cheesecakes | Homemade cheesecakes in London",
   description:
     "Homemade cheesecakes baked to order in London. Choose your cheesecake and size, then confirm your order on WhatsApp. Local bike delivery or pickup.",
+  alternates: { canonical: "/" },
 };
 
 // Products and delivery fees come from the database; refresh at most every 5 minutes.
