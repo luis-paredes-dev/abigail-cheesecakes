@@ -9,9 +9,11 @@ type Props = {
   product: ProductWithSizes;
   /** h2 on the catalogue page, h3 inside a titled section such as the home page. */
   headingLevel?: "h2" | "h3";
+  /** Load the photo straight away; use for the first card when it's at the top of the page. */
+  eager?: boolean;
 };
 
-export function ProductCard({ product, headingLevel = "h2" }: Props) {
+export function ProductCard({ product, headingLevel = "h2", eager = false }: Props) {
   const Heading = headingLevel;
   const prices = product.product_sizes.map((size) => size.price_pence);
   const fromPrice = prices.length > 0 ? Math.min(...prices) : null;
@@ -26,6 +28,7 @@ export function ProductCard({ product, headingLevel = "h2" }: Props) {
         name={product.name}
         sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 90vw"
         className="rounded-lg"
+        eager={eager}
       />
       <Heading className="mt-4 text-lg font-semibold group-hover:underline">{product.name}</Heading>
       {product.description && (

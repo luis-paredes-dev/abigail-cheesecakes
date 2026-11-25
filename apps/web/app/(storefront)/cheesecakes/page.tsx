@@ -28,9 +28,10 @@ export default async function CheesecakesPage() {
         <p className="mt-10">No cheesecakes are available right now. Please check back soon.</p>
       ) : (
         <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
+          {products.map((product, index) => (
             <li key={product.id}>
-              <ProductCard product={product} />
+              {/* The first photo is the main thing on screen on phones, so load it straight away. */}
+              <ProductCard product={product} eager={index === 0} />
             </li>
           ))}
         </ul>
