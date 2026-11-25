@@ -5,6 +5,7 @@ import { cache } from "react";
 
 import { getActiveProducts, getProductBySlug } from "@abigail/database";
 
+import { ProductImage } from "@/components/product-image";
 import { ProductSizes } from "@/components/product-sizes";
 import { getDb } from "@/lib/db";
 
@@ -53,7 +54,12 @@ export default async function ProductPage({ params }: Props) {
       </Link>
 
       <div className="mt-6 grid gap-10 md:grid-cols-2">
-        <div aria-hidden="true" className="aspect-square w-full rounded-xl bg-muted" />
+        <ProductImage
+          slug={product.slug}
+          name={product.name}
+          sizes="(min-width: 768px) 480px, 90vw"
+          className="rounded-xl"
+        />
 
         <div>
           <h1 className="text-3xl font-bold">{product.name}</h1>

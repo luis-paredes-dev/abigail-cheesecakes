@@ -40,3 +40,6 @@ coverage/
 
 # Vercel
 .vercel
+
+# Local preview photos for products (not published; real photos come from the admin panel)
+apps/web/public/images/products/

@@ -5,6 +5,7 @@ import { useState } from "react";
 import type { ProductWithSizes } from "@abigail/database";
 import {
   DEFAULT_UNIT_SYSTEM,
+  MAX_ITEM_QUANTITY,
   formatLength,
   formatPrice,
   formatWeight,
@@ -29,11 +30,15 @@ const UNIT_OPTIONS: { value: UnitSystem; label: string }[] = [
 
 export function ProductSizes({ productName, productSlug, sizes }: Props) {
   const [system, setSystem] = useState<UnitSystem>(DEFAULT_UNIT_SYSTEM);
-  const [lastAdded, setLastAdded] = useState<string | null>(null);
-  const { add } = useBasket();
+  const [status, setStatus] = useState<string | null>(null);
+  const { basket, add, setQuantity } = useBasket();
 
   if (sizes.length === 0) {
     return <p className="text-muted-foreground">No sizes are available right now.</p>;
+  }
+
+  function quantityInBasket(sizeId: string): number {
+    return basket.items.find((item) => item.productSizeId === sizeId)?.quantity ?? 0;
   }
 
   function handleAdd(size: Size) {
@@ -44,7 +49,16 @@ export function ProductSizes({ productName, productSlug, sizes }: Props) {
       sizeLabel: size.label,
       unitPricePence: size.price_pence,
     });
-    setLastAdded(`${productName} (${size.label}) added to your basket.`);
+    setStatus(`${productName} (${size.label}) added to your basket.`);
+  }
+
+  function handleChange(size: Size, quantity: number) {
+    setQuantity(size.id, quantity);
+    setStatus(
+      quantity > 0
+        ? `${productName} (${size.label}): ${quantity} in your basket.`
+        : `${productName} (${size.label}) removed from your basket.`,
+    );
   }
 
   return (
@@ -67,7 +81,7 @@ export function ProductSizes({ productName, productSlug, sizes }: Props) {
         </div>
       </div>
 
-      <ul className="mt-4 divide-y rounded-xl border">
+      <ul className="mt-4 divide-y rounded-xl border bg-card">
         {sizes.map((size) => {
           // The heading follows the unit toggle when we know the diameter;
           // otherwise it falls back to the size's stored name.
@@ -82,24 +96,60 @@ export function ProductSizes({ productName, productSlug, sizes }: Props) {
             size.serves !== null && `serves ${size.serves}`,
           ].filter(Boolean);
 
+          const quantity = quantityInBasket(size.id);
+          const itemName = `${productName}, ${size.label}`;
+
           return (
-            <li key={size.id} className="flex items-center justify-between gap-4 p-4">
+            <li key={size.id} className="flex flex-wrap items-center justify-between gap-4 p-4">
               <div>
                 <p className="font-medium">{heading}</p>
                 {details.length > 0 && (
                   <p className="text-sm text-muted-foreground">{details.join(" · ")}</p>
                 )}
+                {quantity > 0 && (
+                  <p className="mt-1 text-sm font-medium text-primary">{quantity} in your basket</p>
+                )}
               </div>
+
               <div className="flex items-center gap-3">
-                <p className="font-semibold">{formatPrice(size.price_pence)}</p>
-                <Button
-                  type="button"
-                  size="sm"
-                  aria-label={`Add ${productName}, ${size.label}, to basket`}
-                  onClick={() => handleAdd(size)}
-                >
-                  Add
-                </Button>
+                <p className="font-semibold tabular-nums">{formatPrice(size.price_pence)}</p>
+                {quantity === 0 ? (
+                  <Button
+                    type="button"
+                    size="sm"
+                    aria-label={`Add ${itemName} to basket`}
+                    onClick={() => handleAdd(size)}
+                  >
+                    Add
+                  </Button>
+                ) : (
+                  <div
+                    role="group"
+                    aria-label={`Quantity of ${itemName}`}
+                    className="flex items-center gap-2"
+                  >
+                    <Button
+                      type="button"
+                      size="icon-sm"
+                      variant="outline"
+                      aria-label={`Remove one ${itemName}`}
+                      onClick={() => handleChange(size, quantity - 1)}
+                    >
+                      −
+                    </Button>
+                    <span className="w-6 text-center font-semibold tabular-nums">{quantity}</span>
+                    <Button
+                      type="button"
+                      size="icon-sm"
+                      variant="outline"
+                      aria-label={`Add one more ${itemName}`}
+                      disabled={quantity >= MAX_ITEM_QUANTITY}
+                      onClick={() => handleChange(size, quantity + 1)}
+                    >
+                      +
+                    </Button>
+                  </div>
+                )}
               </div>
             </li>
           );
@@ -108,7 +158,7 @@ export function ProductSizes({ productName, productSlug, sizes }: Props) {
 
       {/* Announced by screen readers; also visible confirmation for everyone. */}
       <p role="status" className="mt-3 min-h-5 text-sm text-muted-foreground">
-        {lastAdded}
+        {status}
       </p>
     </div>
   );

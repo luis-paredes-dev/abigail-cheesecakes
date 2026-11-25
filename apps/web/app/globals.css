@@ -47,38 +47,43 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  /*
+   * Brand palette: Soft Lavender #C6B5D8, Dusty Lavender #A693C2, Cream #F5F0E6,
+   * Warm Beige #E7DCC6, Soft Taupe #CBBEB1. Text and button colours are darker
+   * shades of the palette so every text/background pair meets WCAG AA (4.5:1).
+   */
+  --background: #f5f0e6; /* Cream */
+  --foreground: #2e2433; /* deep plum, 13:1 on cream */
+  --card: #fffdf8;
+  --card-foreground: #2e2433;
+  --popover: #fffdf8;
+  --popover-foreground: #2e2433;
+  --primary: #5b4772; /* deep lavender, white text 8.1:1 */
+  --primary-foreground: #ffffff;
+  --secondary: #c6b5d8; /* Soft Lavender */
+  --secondary-foreground: #2e2433;
+  --muted: #e7dcc6; /* Warm Beige */
+  --muted-foreground: #6b5d63; /* 5.5:1 on cream, 4.6:1 on beige */
+  --accent: #c6b5d8;
+  --accent-foreground: #2e2433;
+  --destructive: #b42318;
+  --border: #cbbeb1; /* Soft Taupe */
+  --input: #8a7b72; /* darker taupe so form fields stand out (3.6:1) */
+  --ring: #a693c2; /* Dusty Lavender */
+  --chart-1: #c6b5d8;
+  --chart-2: #a693c2;
+  --chart-3: #5b4772;
+  --chart-4: #cbbeb1;
+  --chart-5: #e7dcc6;
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #fffdf8;
+  --sidebar-foreground: #2e2433;
+  --sidebar-primary: #5b4772;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #c6b5d8;
+  --sidebar-accent-foreground: #2e2433;
+  --sidebar-border: #cbbeb1;
+  --sidebar-ring: #a693c2;
 }
 
 .dark {
@@ -124,5 +129,7 @@
   }
   html {
     @apply font-sans;
+    /* Keeps anchor links and keyboard focus clear of the sticky header. */
+    scroll-padding-top: 5rem;
   }
 }

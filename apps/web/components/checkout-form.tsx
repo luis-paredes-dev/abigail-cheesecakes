@@ -14,7 +14,7 @@ import { useIsClient } from "@/lib/use-is-client";
 const INITIAL_STATE: CheckoutState = { status: "idle" };
 
 const inputClass =
-  "mt-1 block w-full rounded-lg border bg-background px-3 py-2 text-base outline-none focus-visible:ring-3 focus-visible:ring-ring/50 aria-invalid:border-destructive";
+  "mt-1 block w-full rounded-lg border border-input bg-card px-3 py-2 text-base outline-none focus-visible:ring-3 focus-visible:ring-ring/50 aria-invalid:border-destructive";
 
 // Runs the server action, then empties the basket once the order is saved.
 async function submitOrder(previous: CheckoutState, formData: FormData) {

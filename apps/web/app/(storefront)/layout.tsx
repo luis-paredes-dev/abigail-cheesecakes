@@ -11,12 +11,13 @@ export default function StorefrontLayout({
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-md focus:bg-background focus:px-4 focus:py-2 focus:shadow"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-background focus:px-4 focus:py-2 focus:shadow"
       >
         Skip to content
       </a>
 
-      <header className="border-b">
+      {/* Sticky: stays at the top of the screen while scrolling. */}
+      <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
           <Link href="/" className="text-lg font-semibold">
             Abigail&apos;s Cheesecakes
