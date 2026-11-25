@@ -33,15 +33,25 @@ type Props = {
   /** Tells the browser how wide the image is shown, so it downloads the right size. */
   sizes: string;
   className?: string;
+  /** Load straight away instead of lazily. Use for the main image at the top of a page. */
+  eager?: boolean;
 };
 
-export function ProductImage({ slug, name, sizes, className = "" }: Props) {
+export function ProductImage({ slug, name, sizes, className = "", eager = false }: Props) {
   const src = findLocalImage(slug);
 
   return (
     <div className={`relative aspect-square w-full overflow-hidden bg-secondary ${className}`}>
       {src ? (
-        <Image src={src} alt={`${name} cheesecake`} fill sizes={sizes} className="object-cover" />
+        <Image
+          src={src}
+          alt={`${name} cheesecake`}
+          fill
+          sizes={sizes}
+          loading={eager ? "eager" : "lazy"}
+          fetchPriority={eager ? "high" : "auto"}
+          className="object-cover"
+        />
       ) : (
         <div className="flex h-full flex-col items-center justify-center gap-2 text-secondary-foreground">
           <CakeSlice aria-hidden="true" className="size-10" strokeWidth={1.5} />

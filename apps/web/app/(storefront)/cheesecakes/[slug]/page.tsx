@@ -72,6 +72,7 @@ export default async function ProductPage({ params }: Props) {
           name={product.name}
           sizes="(min-width: 768px) 480px, 90vw"
           className="rounded-xl"
+          eager
         />
 
         <div>
