@@ -62,7 +62,11 @@ export default async function ProductPage({ params }: Props) {
           )}
 
           <div className="mt-8">
-            <ProductSizes sizes={product.product_sizes} />
+            <ProductSizes
+              productName={product.name}
+              productSlug={product.slug}
+              sizes={product.product_sizes}
+            />
           </div>
         </div>
       </div>

@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { BasketLink } from "@/components/basket-link";
+
 export default function StorefrontLayout({
   children,
 }: Readonly<{
@@ -19,10 +21,11 @@ export default function StorefrontLayout({
           <Link href="/" className="text-lg font-semibold">
             Abigail&apos;s Cheesecakes
           </Link>
-          <nav aria-label="Main">
+          <nav aria-label="Main" className="flex items-center gap-6">
             <Link href="/cheesecakes" className="text-sm hover:underline">
               Cheesecakes
             </Link>
+            <BasketLink />
           </nav>
         </div>
       </header>

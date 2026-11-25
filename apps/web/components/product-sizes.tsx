@@ -12,19 +12,39 @@ import {
 } from "@abigail/shared";
 
 import { Button } from "@/components/ui/button";
+import { useBasket } from "@/lib/basket-store";
 
 type Size = ProductWithSizes["product_sizes"][number];
+
+type Props = {
+  productName: string;
+  productSlug: string;
+  sizes: Size[];
+};
 
 const UNIT_OPTIONS: { value: UnitSystem; label: string }[] = [
   { value: "imperial", label: "Imperial" },
   { value: "metric", label: "Metric" },
 ];
 
-export function ProductSizes({ sizes }: { sizes: Size[] }) {
+export function ProductSizes({ productName, productSlug, sizes }: Props) {
   const [system, setSystem] = useState<UnitSystem>(DEFAULT_UNIT_SYSTEM);
+  const [lastAdded, setLastAdded] = useState<string | null>(null);
+  const { add } = useBasket();
 
   if (sizes.length === 0) {
     return <p className="text-muted-foreground">No sizes are available right now.</p>;
+  }
+
+  function handleAdd(size: Size) {
+    add({
+      productSizeId: size.id,
+      productSlug,
+      productName,
+      sizeLabel: size.label,
+      unitPricePence: size.price_pence,
+    });
+    setLastAdded(`${productName} (${size.label}) added to your basket.`);
   }
 
   return (
@@ -70,11 +90,26 @@ export function ProductSizes({ sizes }: { sizes: Size[] }) {
                   <p className="text-sm text-muted-foreground">{details.join(" · ")}</p>
                 )}
               </div>
-              <p className="font-semibold">{formatPrice(size.price_pence)}</p>
+              <div className="flex items-center gap-3">
+                <p className="font-semibold">{formatPrice(size.price_pence)}</p>
+                <Button
+                  type="button"
+                  size="sm"
+                  aria-label={`Add ${productName}, ${size.label}, to basket`}
+                  onClick={() => handleAdd(size)}
+                >
+                  Add
+                </Button>
+              </div>
             </li>
           );
         })}
       </ul>
+
+      {/* Announced by screen readers; also visible confirmation for everyone. */}
+      <p role="status" className="mt-3 min-h-5 text-sm text-muted-foreground">
+        {lastAdded}
+      </p>
     </div>
   );
 }

@@ -8,3 +8,16 @@ export {
   formatWeight,
   type UnitSystem,
 } from "./units";
+
+export {
+  EMPTY_BASKET,
+  MAX_ITEM_QUANTITY,
+  addItem,
+  basketItemCount,
+  basketSubtotalPence,
+  parseBasket,
+  removeItem,
+  setQuantity,
+  type Basket,
+  type BasketItem,
+} from "./basket";
