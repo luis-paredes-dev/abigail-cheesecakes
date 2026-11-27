@@ -2,6 +2,8 @@
 
 Full-stack ordering platform for a real homemade cheesecake business in London: a public storefront, an admin panel for the owner, and (in a later phase) a mobile app — built as a TypeScript monorepo on Next.js and Supabase.
 
+**Live demo:** https://abigail-cheesecakes.vercel.app — a preview deployment: prices are placeholders and orders aren't being fulfilled yet.
+
 ![Catalogue page showing three cheesecakes with prices](docs/catalogue.png)
 
 ## What works today
@@ -34,6 +36,7 @@ The full customer flow works end to end: browse → choose a size → basket →
 | Validation | Zod 4                                                            |
 | Monorepo   | Turborepo, pnpm workspaces                                       |
 | Tooling    | ESLint 9 (typescript-eslint strict), Prettier, Supabase CLI      |
+| Hosting    | Vercel (London region), with a daily Vercel Cron keep-alive      |
 
 ## Repository structure
 
@@ -87,12 +90,19 @@ pnpm lint                   # ESLint across all packages
 pnpm --filter web db:check  # smoke test: fetch products as an anonymous visitor
 ```
 
+## Deployment
+
+The site deploys to Vercel from `main` (root directory `apps/web`). Besides the three variables above, Vercel needs:
+
+- `CRON_SECRET` — random string; Vercel Cron sends it to `/api/keep-alive`, which rejects any other caller. The route runs one cheap query a day so the Supabase free plan doesn't pause the database.
+- `NEXT_PUBLIC_PREVIEW_MODE=true` — optional; shows the "preview site" banner. Remove it and redeploy to hide the banner.
+
 ## Roadmap
 
 - [x] **Foundation** — monorepo, tooling, shared TypeScript config
 - [x] **Database & domain layer** — schema, RLS, RPC, generated types, Zod schemas
 - [x] **Storefront** — landing page, catalogue, product pages, basket, checkout with WhatsApp handoff, SEO
-- [ ] **Demo deployment** — live on Vercel
+- [x] **Demo deployment** — live on Vercel, with a database keep-alive
 - [ ] **Admin panel** — Supabase Auth, product and order management, image upload
 - [ ] **Production** — Vitest and Playwright tests, GitHub Actions CI, production database, custom domain
 - [ ] **Mobile app** — Expo admin app with push notifications, reusing the shared packages
