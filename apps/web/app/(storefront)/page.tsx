@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getActiveDeliveryZones, getActiveProducts } from "@abigail/database";
 import { formatPrice } from "@abigail/shared";
 
+import { ContactSection } from "@/components/contact-section";
 import { ProductCard } from "@/components/product-card";
 import { buttonVariants } from "@/components/ui/button";
 import { getDb } from "@/lib/db";
@@ -159,6 +160,8 @@ export default async function HomePage() {
           </ul>
         </div>
       </section>
+
+      <ContactSection />
     </>
   );
 }

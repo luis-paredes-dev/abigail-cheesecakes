@@ -26,6 +26,9 @@ export default function StorefrontLayout({
             <Link href="/cheesecakes" className="text-sm hover:underline">
               Cheesecakes
             </Link>
+            <Link href="/#contact" className="text-sm hover:underline">
+              Contact
+            </Link>
             <BasketLink />
           </nav>
         </div>
