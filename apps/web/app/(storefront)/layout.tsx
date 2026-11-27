@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { BasketLink } from "@/components/basket-link";
+import { PreviewBanner } from "@/components/preview-banner";
 
 export default function StorefrontLayout({
   children,
@@ -15,6 +16,8 @@ export default function StorefrontLayout({
       >
         Skip to content
       </a>
+
+      <PreviewBanner />
 
       {/* Sticky: stays at the top of the screen while scrolling. */}
       <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur">
